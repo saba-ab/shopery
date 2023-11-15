@@ -55,4 +55,9 @@
       }
     }
   }
+  .products-container {
+    .products {
+      width: calc(100% - 250px);
+    }
+  }
 }

@@ -10,6 +10,7 @@ import {
 } from "../utils/dataLinks";
 import Categories from "./Categories";
 import ProductInterface from "../interfaces/ProductInterface";
+import Product from "../components/Product";
 interface Props {
   setCategory: (category: string) => void;
 }
@@ -31,17 +32,22 @@ const Main = ({ setCategory }: Props) => {
       setProducts(data)
     );
   };
-  console.log(products);
+  products.forEach((product) => console.log(product));
   return (
     <div className="main">
       <FilterProducts
         products={products}
         filterProductsByCategory={filterProductsByCategory}
       />
-      <Categories
-        categories={categories}
-        onCategoryChange={handleCategoryChange}
-      />
+      <div className="products-container flex">
+        <Categories
+          categories={categories}
+          onCategoryChange={handleCategoryChange}
+        />
+        <div className="products flex flex-wrap">
+          {products.map((product) => Product(product))}
+        </div>
+      </div>
     </div>
   );
 };

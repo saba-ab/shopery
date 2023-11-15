@@ -8,6 +8,7 @@ function App() {
   const setCategory = (category: string) => {
     setSelectedCategory(category);
   };
+
   return (
     <div className="App">
       <Header category={selectedCategory} />

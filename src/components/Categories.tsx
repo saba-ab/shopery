@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-
+import "../styles/categories.scss";
 interface Props {
   categories: string[];
   onCategoryChange: (category: string) => void;
