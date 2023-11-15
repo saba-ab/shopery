@@ -18,7 +18,7 @@ const Main = ({ setCategory }: Props) => {
   const [categories, setCategories] = useState<string[]>([]);
   const [products, setProducts] = useState<ProductInterface[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-
+  const [price, setPrice] = useState<number[]>([0, 1000]);
   useEffect(() => {
     fetchData(categoryLink).then((data) => setCategories(data));
     fetchData(productsLink).then((data) => setProducts(data));
@@ -32,7 +32,10 @@ const Main = ({ setCategory }: Props) => {
       setProducts(data)
     );
   };
-  products.forEach((product) => console.log(product));
+  const handlePriceChange = (price: number[]) => {
+    setPrice(price);
+  };
+  console.log(price);
   return (
     <div className="main">
       <FilterProducts
@@ -43,6 +46,7 @@ const Main = ({ setCategory }: Props) => {
         <Categories
           categories={categories}
           onCategoryChange={handleCategoryChange}
+          onPriceChange={handlePriceChange}
         />
         <div className="products flex flex-wrap">
           {products.map((product) => Product(product))}
