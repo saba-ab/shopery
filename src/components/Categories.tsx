@@ -2,14 +2,32 @@ import React, { ChangeEvent } from "react";
 import "../styles/categories.scss";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import ProductInterface from "../interfaces/ProductInterface";
 interface Props {
   categories: string[];
   onCategoryChange: (category: string) => void;
   onPriceChange: (price: number[]) => void;
+  defaultValue: number[];
+  clearFilter: () => void;
+  products: ProductInterface[];
+  findExtremePrices: (products: ProductInterface[]) => {
+    lowestPrice: number;
+    highestPrice: number;
+  };
+  priceRange: number[];
 }
 
-const Categories = ({ categories, onCategoryChange, onPriceChange }: Props) => {
-  const [value, setValue] = React.useState<number[]>([20, 37]);
+const Categories = ({
+  categories,
+  onCategoryChange,
+  onPriceChange,
+  defaultValue,
+  clearFilter,
+  products,
+  findExtremePrices,
+  priceRange,
+}: Props) => {
+  const [value, setValue] = React.useState<number[]>([0, 1000]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     const newValueArray = newValue as number[];
@@ -44,11 +62,20 @@ const Categories = ({ categories, onCategoryChange, onPriceChange }: Props) => {
         <h3 style={{ fontSize: "22px", marginTop: "20px" }}>Price range : </h3>
         <Box sx={{ width: 250 }}>
           <Slider
+            min={priceRange[0]}
+            max={priceRange[1]}
+            defaultValue={[
+              findExtremePrices(products).lowestPrice,
+              findExtremePrices(products).highestPrice,
+            ]}
             value={value}
             onChange={handleChange}
             valueLabelDisplay="auto"
           />
         </Box>
+      </div>
+      <div className="clear-filter">
+        <button onClick={clearFilter}>Clear Filter</button>
       </div>
     </div>
   );
