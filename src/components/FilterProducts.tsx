@@ -1,7 +1,7 @@
 import React from "react";
 import filter from "../images/filter.svg";
 import "../styles/main.scss";
-import { FilterButton } from "../components/styledComponents/FilterButton";
+import { GreenButton } from "./styledComponents/GreenButton";
 import ProductInterface from "../interfaces/ProductInterface";
 interface Props {
   products: ProductInterface[];
@@ -11,9 +11,9 @@ interface Props {
 const FilterProducts = ({ products, filterProductsByCategory }: Props) => {
   return (
     <div className="filter-products">
-      <FilterButton onClick={filterProductsByCategory}>
+      <GreenButton onClick={filterProductsByCategory}>
         Filter <img src={filter} alt="filter" />
-      </FilterButton>
+      </GreenButton>
 
       <p>
         <span>{products.length}</span> Results Found

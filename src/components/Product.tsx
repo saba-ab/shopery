@@ -7,10 +7,18 @@ import {
   RatingContainer,
 } from "./styledComponents/ProductCard";
 import ProductInterface from "../interfaces/ProductInterface";
-
+import { useNavigate } from "react-router-dom";
 const Product = ({ title, price, image, id }: ProductInterface) => {
+  const navigate = useNavigate();
+  const handleProductClick = (productId: number) => {
+    navigate(`${productId}`);
+  };
   return (
-    <div className="Product-card" key={id}>
+    <div
+      className="Product-card"
+      key={id}
+      onClick={() => handleProductClick(id)}
+    >
       <Card>
         <ProductImage src={image} alt="product" />
         <ProductTitle>{title}</ProductTitle>

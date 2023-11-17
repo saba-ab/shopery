@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const FilterButton = styled.button`
+export const GreenButton = styled.button`
   display: flex;
   gap: 10px;
   align-items: center;

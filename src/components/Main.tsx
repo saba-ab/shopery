@@ -32,7 +32,6 @@ const Main = ({ setCategory }: Props) => {
     data.filter((product) => {
       return product.price >= price[0] && product.price <= price[1];
     });
-  console.log(selectedCategory);
   const filterProductsByCategory = () => {
     selectedCategory !== "" && setCategory(selectedCategory);
 
@@ -76,7 +75,7 @@ const Main = ({ setCategory }: Props) => {
       findExtremePrices(products).highestPrice,
     ]);
   }, [products]);
-  console.log(price);
+
   return (
     <div className="main">
       <FilterProducts
@@ -98,7 +97,21 @@ const Main = ({ setCategory }: Props) => {
           ]}
         />
         <div className="products flex flex-wrap">
-          {products.map((product) => Product(product))}
+          {products.map((product) => (
+            <Product
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+              category={""}
+              description={""}
+              rating={{
+                count: 0,
+                rate: 0,
+              }}
+            />
+          ))}
         </div>
       </div>
     </div>
