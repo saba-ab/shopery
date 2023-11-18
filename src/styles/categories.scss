@@ -1,3 +1,20 @@
 .filter-wrapper {
   width: 250px;
+  .clear-filter {
+    margin-top: 10px;
+    button {
+      border: none;
+      border-radius: 15px;
+      padding: 5px 20px;
+      background-color: #88608b;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: #7553a5;
+        color: #fff;
+        scale: 1.05;
+      }
+    }
+  }
 }
