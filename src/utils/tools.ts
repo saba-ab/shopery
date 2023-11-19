@@ -1,5 +1,87 @@
+import { instance } from "./dataLinks";
+import ProductInterface from "../interfaces/ProductInterface";
+import { SetStateType } from "../interfaces/otherInterfaces";
 export const fetchData = async (url: string) => {
   const response = await fetch(url);
   const data = await response.json();
   return data;
+};
+export const handleCategoryChange =
+  (setSelectedCategory: React.Dispatch<React.SetStateAction<string>>) =>
+  (category: string) => {
+    setSelectedCategory(category);
+  };
+
+export const filteredData = (price: number[]) => (data: any[]) =>
+  data.filter((product) => {
+    return product.price >= price[0] && product.price <= price[1];
+  });
+export const handlePriceChangeX =
+  (
+    setPrice: React.Dispatch<React.SetStateAction<number[]>>,
+    filterProductsByPrice: () => void
+  ) =>
+  (price: number[]): void => {
+    setPrice(price);
+    filterProductsByPrice();
+  };
+export const clearFilter = (
+  setProducts: SetStateType<ProductInterface[]>,
+  setProductsToFilter: SetStateType<ProductInterface[]>,
+  setSelectedCategory: SetStateType<string>,
+  setPrice: SetStateType<number[]>,
+  setCategory: (category: string) => void
+): void => {
+  instance
+    .get<ProductInterface[]>("products")
+    .then((response) => {
+      setProducts(response.data);
+      setProductsToFilter(response.data);
+      setSelectedCategory("");
+      setPrice([0, 1000]);
+      setCategory("");
+    })
+    .catch((error) => {
+      console.error("Error clearing filters:", error);
+    });
+};
+export const findExtremePricesX = (
+  products: ProductInterface[]
+): { lowestPrice: number; highestPrice: number } => {
+  if (products.length === 0) {
+    return { lowestPrice: 0, highestPrice: 1000 };
+  }
+  let lowestPrice = products[0].price;
+  let highestPrice = products[0].price;
+
+  products.forEach((product) => {
+    if (product.price < lowestPrice) {
+      lowestPrice = product.price;
+    }
+    if (product.price > highestPrice) {
+      highestPrice = product.price;
+    }
+  });
+
+  return { lowestPrice, highestPrice };
+};
+export const filterProductsByPriceX = (
+  products: ProductInterface[],
+  price: number[],
+  selectedCategory: string,
+  setProductsToFilter: SetStateType<ProductInterface[]>
+): void => {
+  const filtered =
+    selectedCategory === ""
+      ? products.filter(
+          (product) => product.price >= price[0] && product.price <= price[1]
+        )
+      : products.filter(
+          (product) =>
+            product.price >= price[0] &&
+            product.price <= price[1] &&
+            product.category === selectedCategory
+        );
+
+  setProductsToFilter(filtered);
 };
