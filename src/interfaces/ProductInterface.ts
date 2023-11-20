@@ -12,3 +12,10 @@ export default interface ProductInterface {
   title: string;
   addCart: () => void;
 }
+export interface IProduct {
+  image: string;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+}

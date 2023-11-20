@@ -9,7 +9,6 @@ import { useProductsContext } from "../contexts/ProductsContext";
 const Cart = () => {
   const [cart, setCart] = useState<ICart>();
   const [products, setProducts] = useState<ProductInterface[]>([]);
-  // const [productsToShow, setProductsToShow] = useState<ProductInterface[]>([]);
   const { productsToShow, setProductsToShow } = useProductsContext();
   const navigate = useNavigate();
 
@@ -47,9 +46,6 @@ const Cart = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productsToShow]);
-
-  console.log("Products to show: ", productsToShow);
-
   return (
     <div className="cart-products flex flex-col gap-14 my-10">
       {productsToShow?.map((product) => (

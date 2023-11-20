@@ -13,6 +13,7 @@ import {
   findExtremePricesX,
   handlePriceChangeX,
   filterProductsByPriceX,
+  handleCartClickX,
 } from "../utils/tools";
 import { useProductsContext } from "../contexts/ProductsContext";
 interface Props {
@@ -51,6 +52,7 @@ const Main = ({ setCategory }: Props) => {
     );
   };
   const { productsToShow, setProductsToShow } = useProductsContext();
+  const handleCartClick = handleCartClickX(productsToShow, setProductsToShow);
   useEffect(() => {
     setIsLoading(true);
     instance
@@ -91,23 +93,6 @@ const Main = ({ setCategory }: Props) => {
       setPriceRange([lowestPrice, highestPrice]);
     });
   }, []);
-  const handleCartClick = (product: ProductInterface) => {
-    const isProductInCart = productsToShow.some((p) => p.id === product.id);
-
-    if (isProductInCart) {
-      const updatedProducts = productsToShow.map((p) => {
-        if (p.id === product.id) {
-          const updatedQuantity = p.quantity ? p.quantity + 1 : 1;
-          return { ...p, quantity: updatedQuantity };
-        }
-        return p;
-      });
-      setProductsToShow(updatedProducts);
-    } else {
-      const newProduct = { ...product, quantity: 1 };
-      setProductsToShow([...productsToShow, newProduct]);
-    }
-  };
 
   return (
     <div className="main">

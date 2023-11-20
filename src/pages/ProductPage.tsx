@@ -6,18 +6,18 @@ import { useNavigate } from "react-router-dom";
 import "../styles/productpage.scss";
 import { GreenButton } from "../components/styledComponents/GreenButton";
 import cartImg from "../images/add-to-cart-icon.svg";
-interface Product {
-  image: string;
-  title: string;
-  description: string;
-  price: number;
-  category: string;
-}
+import { handleCartClickX } from "../utils/tools";
+import { useProductsContext } from "../contexts/ProductsContext";
+import ProductInterface from "../interfaces/ProductInterface";
 
 const ProductPage = () => {
-  const [product, setProduct] = useState<Product>({} as Product);
+  const [product, setProduct] = useState<ProductInterface>(
+    {} as ProductInterface
+  );
   const navigate = useNavigate();
   const { productId } = useParams();
+  const { productsToShow, setProductsToShow } = useProductsContext();
+  const handleCartClick = handleCartClickX(productsToShow, setProductsToShow);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -27,8 +27,6 @@ const ProductPage = () => {
 
     fetchProduct();
   }, [productId]);
-
-  console.log(product);
 
   return (
     <>
@@ -45,7 +43,10 @@ const ProductPage = () => {
 
             <p>{product.description}</p>
             <div className="line"></div>
-            <GreenButton style={{ margin: "0 auto" }}>
+            <GreenButton
+              style={{ margin: "0 auto" }}
+              onClick={() => handleCartClick(product)}
+            >
               Add to cart <img src={cartImg} alt="cart" />
             </GreenButton>
             <p>

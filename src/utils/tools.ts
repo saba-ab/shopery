@@ -99,3 +99,24 @@ export const addToCart = (
   const newCart = [...cart, product];
   setCart(newCart);
 };
+export const handleCartClickX =
+  (
+    productsToShow: ProductInterface[],
+    setProductsToShow: (products: ProductInterface[]) => void
+  ) =>
+  (product: ProductInterface) => {
+    const isProductInCart = productsToShow.some((p) => p.id === product.id);
+    if (isProductInCart) {
+      const updatedProducts = productsToShow.map((p) => {
+        if (p.id === product.id) {
+          const updatedQuantity = p.quantity ? p.quantity + 1 : 1;
+          return { ...p, quantity: updatedQuantity };
+        }
+        return p;
+      });
+      setProductsToShow(updatedProducts);
+    } else {
+      const newProduct = { ...product, quantity: 1 };
+      setProductsToShow([...productsToShow, newProduct]);
+    }
+  };

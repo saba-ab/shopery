@@ -7,7 +7,6 @@ interface Props {
   category: string;
 }
 const Header = ({ category }: Props) => {
-  console.log(category);
   return (
     <div className="header flex h-28 relative">
       <img src={headerImg} alt="header" className="header-img" />
