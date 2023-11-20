@@ -14,6 +14,7 @@ import {
   handlePriceChangeX,
   filterProductsByPriceX,
 } from "../utils/tools";
+import { useProductsContext } from "../contexts/ProductsContext";
 interface Props {
   setCategory: (category: string) => void;
 }
@@ -49,7 +50,7 @@ const Main = ({ setCategory }: Props) => {
       setCategory
     );
   };
-
+  const { productsToShow, setProductsToShow } = useProductsContext();
   useEffect(() => {
     setIsLoading(true);
     instance
@@ -90,6 +91,24 @@ const Main = ({ setCategory }: Props) => {
       setPriceRange([lowestPrice, highestPrice]);
     });
   }, []);
+  const handleCartClick = (product: ProductInterface) => {
+    const isProductInCart = productsToShow.some((p) => p.id === product.id);
+
+    if (isProductInCart) {
+      const updatedProducts = productsToShow.map((p) => {
+        if (p.id === product.id) {
+          const updatedQuantity = p.quantity ? p.quantity + 1 : 1;
+          return { ...p, quantity: updatedQuantity };
+        }
+        return p;
+      });
+      setProductsToShow(updatedProducts);
+    } else {
+      const newProduct = { ...product, quantity: 1 };
+      setProductsToShow([...productsToShow, newProduct]);
+    }
+  };
+
   return (
     <div className="main">
       <FilterProducts
@@ -111,16 +130,18 @@ const Main = ({ setCategory }: Props) => {
           <div className="products flex flex-wrap justify-center">
             {productsToFilter.map((product) => (
               <Product
+                quantity={product.quantity}
                 key={product.id}
                 id={product.id}
+                addCart={() => handleCartClick(product)}
                 title={product.title}
                 price={product.price}
                 image={product.image}
                 category={""}
                 description={""}
                 rating={{
-                  count: 0,
-                  rate: 0,
+                  rate: product.rating.rate,
+                  count: product.rating.count,
                 }}
               />
             ))}

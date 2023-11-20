@@ -5,6 +5,9 @@ import Main from "./components/Main";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import ProductPage from "./pages/ProductPage";
+import Cart from "./components/Cart";
+
+import { ProductsProvider } from "./contexts/ProductsContext";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = React.useState<string>("");
@@ -15,11 +18,14 @@ function App() {
   return (
     <div className="App">
       <Header category={selectedCategory} />
-      <Routes>
-        <Route path="/" element={<Main setCategory={setCategory} />} />
-        <Route path="/:productId" element={<ProductPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <ProductsProvider>
+        <Routes>
+          <Route path="/" element={<Main setCategory={setCategory} />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/:productId" element={<ProductPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </ProductsProvider>
     </div>
   );
 }

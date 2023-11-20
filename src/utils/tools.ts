@@ -85,3 +85,17 @@ export const filterProductsByPriceX = (
 
   setProductsToFilter(filtered);
 };
+export const shortenString = (str: string, num: number = 50): string => {
+  if (str.length <= num) {
+    return str;
+  }
+  return str.slice(0, num) + "...";
+};
+export const addToCart = (
+  product: ProductInterface,
+  cart: ProductInterface[],
+  setCart: SetStateType<ProductInterface[]>
+): void => {
+  const newCart = [...cart, product];
+  setCart(newCart);
+};

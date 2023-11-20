@@ -1,4 +1,5 @@
 export default interface ProductInterface {
+  quantity: any;
   category: string;
   description: string;
   id: number;
@@ -9,4 +10,5 @@ export default interface ProductInterface {
     rate: number;
   };
   title: string;
+  addCart: () => void;
 }

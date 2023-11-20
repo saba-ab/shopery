@@ -3,6 +3,8 @@ import "../styles/categories.scss";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import ProductInterface from "../interfaces/ProductInterface";
+import { GreenButton } from "./styledComponents/GreenButton";
+import { useNavigate } from "react-router-dom";
 interface Props {
   categories: string[];
   onCategoryChange: (category: string) => void;
@@ -28,7 +30,7 @@ const Categories = ({
   priceRange,
 }: Props) => {
   const [value, setValue] = React.useState<number[]>([0, 1000]);
-
+  const navigate = useNavigate();
   const handleChange = (event: Event, newValue: number | number[]) => {
     const newValueArray = newValue as number[];
     setValue(newValueArray);
@@ -76,6 +78,12 @@ const Categories = ({
       </div>
       <div className="clear-filter">
         <button onClick={clearFilter}>Clear Filter</button>
+      </div>
+      <div
+        className="navigate-to-cart m-10 border-slate-950 "
+        onClick={() => navigate("/cart")}
+      >
+        <GreenButton>Check The Cart</GreenButton>
       </div>
     </div>
   );

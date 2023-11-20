@@ -60,4 +60,26 @@
       width: calc(100% - 250px);
     }
   }
+  .add-to-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+    padding: 0 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #063808;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: #0e251a;
+      scale: 1.05;
+    }
+  }
 }
