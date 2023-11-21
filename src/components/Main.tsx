@@ -95,23 +95,23 @@ const Main = ({ setCategory }: Props) => {
   }, []);
 
   return (
-    <div className="main">
-      <FilterProducts
-        products={productsToFilter}
-        filterProductsByCategory={filterProductsByCategory}
-      />
-      <div className="products-container flex justify-evenly">
-        <Categories
-          priceRange={priceRange}
-          findExtremePrices={findExtremePricesX}
-          products={products}
-          clearFilter={onClearFilter}
-          categories={categories}
-          onCategoryChange={onCategoryChange}
-          onPriceChange={handlePriceChange}
-          defaultValue={[lowestPrice, highestPrice]}
+    <div className="main w-screen flex justify-center">
+      <Loader isLoading={isLoading}>
+        <FilterProducts
+          products={productsToFilter}
+          filterProductsByCategory={filterProductsByCategory}
         />
-        <Loader isLoading={isLoading}>
+        <div className="products-container flex justify-evenly">
+          <Categories
+            priceRange={priceRange}
+            findExtremePrices={findExtremePricesX}
+            products={products}
+            clearFilter={onClearFilter}
+            categories={categories}
+            onCategoryChange={onCategoryChange}
+            onPriceChange={handlePriceChange}
+            defaultValue={[lowestPrice, highestPrice]}
+          />
           <div className="products flex flex-wrap justify-center">
             {productsToFilter.map((product) => (
               <Product
@@ -131,8 +131,8 @@ const Main = ({ setCategory }: Props) => {
               />
             ))}
           </div>
-        </Loader>
-      </div>
+        </div>
+      </Loader>
     </div>
   );
 };
